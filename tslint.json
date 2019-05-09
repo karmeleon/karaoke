@@ -1,0 +1,16 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "indent": [true, "tabs"],
+        "quotemark": [true, "single", "jsx-double"],
+        "interface-name": [false]
+    },
+    "include": [
+        "backend/server/**/*",
+        "frontend/src/**/*"
+    ]
+}
