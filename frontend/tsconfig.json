@@ -20,6 +20,8 @@
     "jsx": "preserve"
   },
   "include": [
-    "src"
+    "src",
+    "tests/setupTests.ts",
+    "tests/App.test.tsx"
   ]
 }

@@ -3,3 +3,5 @@ frontend/build
 backend/build
 backend/.env.example
 backend/.env
+frontend/yarn-error.log
+backend/yarn-error.log
