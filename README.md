@@ -48,8 +48,8 @@ The `controller` consists of your endpoints, where you define what actions your 
 Example of a private endpoint. If you remove `authorize` this will be a public endpoint.
 ```ts
 router.route("/").get(authorize, async (request, response) => {
-  const items = await Item.find();
-  return response.status(200).json(items);
+	const items = await Item.find();
+	return response.status(200).json(items);
 });
 ```
 
@@ -70,42 +70,42 @@ Say goodbye to PropTypes, and welcome TypeScript!
 A class component receiving props and containing local state can be written like this:
 ```ts
 type MyComponentState = {
-  isOpen: boolean;
-  value: number;
+	isOpen: boolean;
+	value: number;
 };
 
 type MyComponentProps = {
-  name: string;
-  callback: () => void;
+	name: string;
+	callback: () => void;
 };
 
 class MyClassComponent extends React.Component<MyComponentProps, MyComponentState> {
-  state = {
-    isOpen: true,
-    value: 0
-  };
+	state = {
+		isOpen: true,
+		value: 0
+	};
 
-  public render() {
-    return (
-      // your JSX here...
-    );
-  }
+	public render() {
+		return (
+			// your JSX here...
+		);
+	}
 
-  private myPrivateMethod = (data: string): void => {
-    // do something in your private method...
-  };
+	private myPrivateMethod = (data: string): void => {
+		// do something in your private method...
+	};
 }
 ```
 
 In the other hand, a functional (presentational) component can be written like this:
 ```ts
 type MyComponentProps = {
-  name: string;
-  callback: () => void;
+	name: string;
+	callback: () => void;
 };
 
 const MyFuncComponent: React.SFC<MyComponentProps> = ({ name, callback }) => (
-  // your JSX here...
+	// your JSX here...
 );
 ```
 
