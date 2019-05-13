@@ -7,7 +7,10 @@ const port = process.env.PORT || 9000;
 const server = app.listen(port);
 
 // Fire up the peerjs server
-const peerServerOptions = {};
+const peerServerOptions = {
+    debug: true,
+    port: 9000,
+};
 
 const peerServer = ExpressPeerServer(server, peerServerOptions);
 app.use('/api/peer_server', peerServer);

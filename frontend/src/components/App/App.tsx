@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import React, { FC, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
-import KaraokeBase from '../KaraokeBase';
+import PlayerBase from '../PlayerBase';
 import RemoteBase from '../RemoteBase';
 
 const theme = createMuiTheme({
@@ -26,7 +26,7 @@ const AppSelector: FC<{}> = () => {
 		<Grid container direction="column" justify="center" alignItems="center">
 			<Grid item xs={3}>
 				<Button 
-					onClick={() => setRedirectUrl('/karaoke')}
+					onClick={() => setRedirectUrl('/player')}
 					color="primary"
 					variant="contained"
 					fullWidth
@@ -52,7 +52,7 @@ const App: FC<{}> = () =>
 <MuiThemeProvider theme={theme}><CssBaseline />
 	<Router>
 		<Route path="/remote" component={RemoteBase} />
-		<Route path="/karaoke" component={KaraokeBase} />
+		<Route path="/player" component={PlayerBase} />
 		<Route path="/" exact component={AppSelector} />
 	</Router>
 </MuiThemeProvider>;

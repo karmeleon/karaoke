@@ -17,7 +17,13 @@ app.get('/api/test', (req, res) => res.status(200).json('nice'));
 app.use(express.static(path.resolve('..', 'frontend', 'build')));
 
 // Intercept requests to return the frontend's static entry point
-app.get('*', (request, response) => {
+app.get('/', (request, response) => {
+	response.sendFile(path.resolve('..', 'frontend', 'build', 'index.html'));
+});
+app.get('/player', (request, response) => {
+	response.sendFile(path.resolve('..', 'frontend', 'build', 'index.html'));
+});
+app.get('/remote', (request, response) => {
 	response.sendFile(path.resolve('..', 'frontend', 'build', 'index.html'));
 });
 
