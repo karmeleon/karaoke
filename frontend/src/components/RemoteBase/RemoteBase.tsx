@@ -28,7 +28,12 @@ const RemoteBase: FC<{}> = () => {
 		messageLoop();
 
 		const constraints = {
-			audio: true,
+			audio: {
+				channels: 1,
+				latency: 0.0,
+				echoCancellation: true,
+				noiseSuppression: true,
+			},
 			video: false,
 		}
 
