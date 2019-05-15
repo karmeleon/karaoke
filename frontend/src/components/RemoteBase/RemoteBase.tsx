@@ -6,28 +6,42 @@ import Peer from 'peerjs';
 const RemoteBase: FC<{}> = () => {
 	useEffect(() => {
 		const peer = new Peer({
-			host: '/',
-            path: '/api/peer_server',
-            port: 3000,
+			debug: 3,
+			config: {
+				'iceServers': [
+					{ urls: ['stun:stun.l.google.com:19302'] },
+					{ urls: ['stun:stun1.l.google.com:19302'] },
+				],
+			},
 		});
 
-		const connection = peer.connect('kljaiuwrioq7w889ra89s7f9a');
+		const connection = peer.connect('deezNutsLol');
 
-		setTimeout(() => connection.send('ayy lmao'), 1000);
+		function messageLoop() {
+			setTimeout(() => {
+				console.log('sending');
+				connection.send('ayy lmao');
+				messageLoop();
+			}, 1000);
+		}
+
+		messageLoop();
 
 		const constraints = {
 			audio: true,
 			video: false,
 		}
 
-		navigator.mediaDevices.getUserMedia(constraints)
-			.catch(e => console.error(e))
-			.then(mediaStream => {
-				if (mediaStream != null) {
-					console.log('calling');
-					const call = peer.call('kljaiuwrioq7w889ra89s7f9a', mediaStream);
-				}
-			});
+		connection.on('open', () => {
+			navigator.mediaDevices.getUserMedia(constraints)
+				.catch(e => console.error(e))
+				.then(mediaStream => {
+					if (mediaStream != null) {
+						console.log('calling');
+						const call = peer.call('deezNutsLol', mediaStream);
+					}
+				});
+		});
 	});
 
 	return <Typography variant="h2">Connecting to SUCC</Typography>

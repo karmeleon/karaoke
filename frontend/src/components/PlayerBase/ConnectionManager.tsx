@@ -5,13 +5,17 @@ import Grid from '@material-ui/core/Grid';
 import Peer from 'peerjs';
 
 const ConnectionManager: FC<{}> = () => {
-    const [roomCode, setRoomCode] = useState('kljaiuwrioq7w889ra89s7f9a');
+    const [roomCode, setRoomCode] = useState('deezNutsLol');
 
     useEffect(() => {
         const peer = new Peer(roomCode, {
-            host: '/',
-            path: '/api/peer_server',
-            port: 9000,
+            debug: 3,
+            config: {
+				'iceServers': [
+					{ urls: ['stun:stun.l.google.com:19302'] },
+					{ urls: ['stun:stun1.l.google.com:19302'] },
+				],
+			},
         });
 
         const audioElement = document.createElement('audio');
@@ -26,7 +30,8 @@ const ConnectionManager: FC<{}> = () => {
             console.log(`answering call from ${call.peer}`);
 
             call.on('stream', stream => {
-                audioElement.src = URL.createObjectURL(stream);
+                console.log(stream);
+                audioElement.srcObject = stream;
                 audioElement.play();
             });
 
