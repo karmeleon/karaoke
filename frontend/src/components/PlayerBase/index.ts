@@ -1,1 +1,1 @@
-export { default as default } from './PlayerBase';
+export { default } from './PlayerBase';

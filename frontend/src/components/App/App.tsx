@@ -1,9 +1,6 @@
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { Button, CssBaseline, createMuiTheme, MuiThemeProvider, Grid } from '@material-ui/core';
 import React, { FC, useState } from 'react';
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import PlayerBase from '../PlayerBase';
 import RemoteBase from '../RemoteBase';

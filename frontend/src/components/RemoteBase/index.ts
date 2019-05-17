@@ -1,1 +1,1 @@
-export { default as default } from './RemoteBase';
+export { default } from './RemoteBase';

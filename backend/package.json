@@ -45,6 +45,7 @@
     "@types/webpack": "^4.4.31",
     "chalk": "^2.4.1",
     "jest": "^23.4.0",
+    "nodemon-webpack-plugin": "^4.0.8",
     "supertest": "^3.0.0",
     "ts-jest": "^21.2.4",
     "ts-loader": "^3.2.0",

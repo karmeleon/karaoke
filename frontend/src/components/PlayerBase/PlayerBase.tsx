@@ -1,24 +1,34 @@
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Grid } from '@material-ui/core';
 import React, { FC } from 'react';
 
-import ConnectionManager from './ConnectionManager';
+import RoomCodeDisplay from './RoomCodeDisplay';
+import UserIsland from './UserIsland';
+import VideoDisplay from './VideoDisplay';
+import { PlaylistDispatchContext } from './Context';
+import { useLogic } from './hooks';
 
 import styles from './PlayerBase.module.scss';
 
-const PlayerBase: FC<{}> = () =>
-    <div className={styles.fullscreenContainer}>
-        <div className={styles.videoSection}>
-            <Typography>There'll be a video here or sth</Typography>
-        </div>
-        <div className={styles.bottomSection}>
-            <Grid container>
-                <Grid item xs={2}>
-                    <ConnectionManager />
-                </Grid>
-            </Grid>
-        </div>
-    </div>;
+const PlayerBase: FC<{}> = () => {
+    const connectionStatus = useLogic();
+
+    return (
+        <PlaylistDispatchContext.Provider value={connectionStatus.playlistDispatch}>
+            <div className={styles.fullscreenContainer}>
+                <div className={styles.videoSection}>
+                    <VideoDisplay playlist={connectionStatus.playlist} />
+                </div>
+                <div className={styles.bottomSection}>
+                    <Grid container>
+                        <RoomCodeDisplay roomCode={connectionStatus.roomCode} />
+                        {connectionStatus.connectedUsers.map(metadata =>
+                            <UserIsland name={metadata.friendlyName} key={metadata.friendlyName} />
+                        )}
+                    </Grid>
+                </div>
+            </div>
+        </PlaylistDispatchContext.Provider>
+    );
+};
 
 export default PlayerBase;

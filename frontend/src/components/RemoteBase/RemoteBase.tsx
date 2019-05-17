@@ -1,5 +1,4 @@
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 import React, { FC, useEffect } from 'react';
 import Peer from 'peerjs';
 
@@ -43,7 +42,7 @@ const RemoteBase: FC<{}> = () => {
 				.then(mediaStream => {
 					if (mediaStream != null) {
 						console.log('calling');
-						const call = peer.call('deezNutsLol', mediaStream);
+						peer.call('deezNutsLol', mediaStream);
 					}
 				});
 		});

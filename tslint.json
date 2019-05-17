@@ -2,13 +2,15 @@
     "defaultSeverity": "error",
     "extends": [
         "tslint:recommended",
+        "tslint-config-prettier",
         "tslint-config-airbnb"
     ],
     "jsRules": {},
     "rules": {
         "indent": [true, "tabs"],
         "quotemark": [true, "single", "jsx-double"],
-        "interface-name": [false]
+        "interface-name": [false],
+        "default-case": [false]
     },
     "include": [
         "backend/server/**/*",
