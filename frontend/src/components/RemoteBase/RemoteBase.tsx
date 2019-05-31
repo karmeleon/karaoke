@@ -1,54 +1,64 @@
-import { Typography } from '@material-ui/core';
-import React, { FC, useEffect } from 'react';
-import Peer from 'peerjs';
+import { Typography, Grid, Button, TextField } from '@material-ui/core';
+import React, { FC, useEffect, useRef, useCallback } from 'react';
+import { useLogic } from './hooks';
+
+import styles from './RemoteBase.module.scss';
 
 const RemoteBase: FC<{}> = () => {
-	useEffect(() => {
-		const peer = new Peer({
-			debug: 3,
-			config: {
-				'iceServers': [
-					{ urls: ['stun:stun.l.google.com:19302'] },
-					{ urls: ['stun:stun1.l.google.com:19302'] },
-				],
-			},
-		});
+	const {
+        isConnected,
+        friendlyName,
+        connectToPlayer,
+	} = useLogic();
+	const roomCodeInputRef = useRef<HTMLInputElement>(null);
+	const displayNameInputRef = useRef<HTMLInputElement>(null);
 
-		const connection = peer.connect('deezNutsLol');
+	const buttonCallback = useCallback(() => {
+		const roomCode = roomCodeInputRef.current && roomCodeInputRef.current.value;
+		const displayName = displayNameInputRef.current && displayNameInputRef.current.value;
 
-		function messageLoop() {
-			setTimeout(() => {
-				console.log('sending');
-				connection.send('ayy lmao');
-				messageLoop();
-			}, 1000);
+		// this should always be true.
+		if (roomCode && displayName) {
+			connectToPlayer(roomCode, displayName);
 		}
+	}, [roomCodeInputRef, displayNameInputRef, connectToPlayer]);
 
-		messageLoop();
-
-		const constraints = {
-			audio: {
-				channels: 1,
-				latency: 0.0,
-				echoCancellation: true,
-				noiseSuppression: true,
-			},
-			video: false,
-		}
-
-		connection.on('open', () => {
-			navigator.mediaDevices.getUserMedia(constraints)
-				.catch(e => console.error(e))
-				.then(mediaStream => {
-					if (mediaStream != null) {
-						console.log('calling');
-						peer.call('deezNutsLol', mediaStream);
-					}
-				});
-		});
-	});
-
-	return <Typography variant="h2">Connecting to SUCC</Typography>
+	return (
+		<Grid container direction="column" justify="space-evenly" alignItems="center" spacing={2}>
+			<Grid item xs={12}>
+				<TextField
+					className={styles.roomCodeInput}
+					label="Room Code"
+					variant="outlined"
+					autoFocus
+					inputProps={{
+						maxLength: 4,
+					}}
+					inputRef={roomCodeInputRef}
+				/>
+			</Grid>
+			<Grid item xs={12}>
+				<TextField
+					label="Display Name"
+					variant="outlined"
+					inputProps={{
+						maxLength: 12,
+					}}
+					inputRef={displayNameInputRef}
+				/>
+			</Grid>
+			<Grid item xs={12}>
+				<Button
+					color="primary"
+					variant="contained"
+					fullWidth
+					onClick={buttonCallback}
+				>
+					Connect
+				</Button>
+			</Grid>
+		</Grid>
+	);
 };
 
 export default RemoteBase;

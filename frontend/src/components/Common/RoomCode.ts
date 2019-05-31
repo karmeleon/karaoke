@@ -40,16 +40,24 @@ export const BANNED_ROOM_NAMES = [
  * Generate a four-letter room code
  */
 export function generateRoomCode(): string {
-    const charCodes = new Array(4)
-        .fill(undefined)
-        .map(() => Math.floor(Math.random() * 26) + 'A'.charCodeAt(0));
-    const roomCode = String.fromCharCode(...charCodes);
+    const roomCode = generateRandomString(4);
+
     // make sure we're not saying something bad
     if (BANNED_ROOM_NAMES.includes(roomCode)) {
         // just recurse, it'll probably never happen twice in a row
         return generateRoomCode();
     }
     return roomCode;
+}
+
+/**
+ * Generate a random all-caps string with a given length
+ */
+export function generateRandomString(length: number): string {
+    const charCodes = new Array(4)
+        .fill(undefined)
+        .map(() => Math.floor(Math.random() * 26) + 'A'.charCodeAt(0));
+    return String.fromCharCode(...charCodes);
 }
 
 /**

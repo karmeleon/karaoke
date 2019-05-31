@@ -1,4 +1,5 @@
-import { Button, CssBaseline, createMuiTheme, MuiThemeProvider, Grid } from '@material-ui/core';
+import { Button, CssBaseline, createMuiTheme, Grid } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 import React, { FC, useState } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
@@ -9,7 +10,6 @@ const theme = createMuiTheme({
 	palette: {
 		type: 'dark',
 	},
-	typography: { useNextVariants: true },
 });
 
 const AppSelector: FC<{}> = () => {
@@ -20,7 +20,7 @@ const AppSelector: FC<{}> = () => {
 	}
 
 	return (
-		<Grid container direction="column" justify="center" alignItems="center">
+		<Grid container direction="column" justify="center" alignItems="center" spacing={2}>
 			<Grid item xs={3}>
 				<Button 
 					onClick={() => setRedirectUrl('/player')}
@@ -46,12 +46,12 @@ const AppSelector: FC<{}> = () => {
 };
 
 const App: FC<{}> = () => 
-<MuiThemeProvider theme={theme}><CssBaseline />
+<ThemeProvider theme={theme}><CssBaseline />
 	<Router>
 		<Route path="/remote" component={RemoteBase} />
 		<Route path="/player" component={PlayerBase} />
 		<Route path="/" exact component={AppSelector} />
 	</Router>
-</MuiThemeProvider>;
+</ThemeProvider>;
 
 export default App;
