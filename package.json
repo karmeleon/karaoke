@@ -1,9 +1,8 @@
 {
-  "name": "create-mern-ts-app",
+  "name": "karaoke",
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "8.x",
     "yarn": "1.x"
   },
   "scripts": {
