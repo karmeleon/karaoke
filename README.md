@@ -9,6 +9,7 @@ yarn start
 Run production-ly:
 
 ```
+yarn build
 yarn serve
 ```
 
