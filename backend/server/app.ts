@@ -2,6 +2,8 @@ import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as path from 'path';
 
+import songsRouter from './controllers/songs';
+
 // Put dotenv in use before importing controllers
 dotenv.config();
 
@@ -11,7 +13,7 @@ dotenv.config();
 const app = express();
 
 // Assign controllers to routes
-app.get('/api/test', (req, res) => res.status(200).json('nice'));
+app.use('/api/v1/songs', songsRouter);
 
 // Declare the path to frontend's static assets
 app.use(express.static(path.resolve('..', 'frontend', 'build')));
