@@ -1,11 +1,22 @@
-import React, { FC } from 'react';
-import { AppBar, InputBase, Toolbar, makeStyles, Theme, createStyles } from '@material-ui/core';
+import {
+	AppBar,
+	createStyles,
+	InputBase,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	makeStyles,
+	Theme,
+	Toolbar,
+} from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import MusicNote from '@material-ui/icons/MusicNote';
 import SearchIcon from '@material-ui/icons/Search';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import React, { FC, useState } from 'react';
 import { ConnectionStatus } from './hooks';
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		search: {
 			position: 'relative',
@@ -42,35 +53,63 @@ const useStyles = makeStyles((theme: Theme) =>
 				width: 200,
 			},
 		},
-	})
+	}),
 );
 
 interface Props {
 	// A callback to send a Message to the connected Player.
-	sendMessage: ConnectionStatus['sendMessage'],
+	sendMessage: ConnectionStatus['sendMessage'];
+}
+
+interface SearchResult {
+	displayText: string;
+	videoId: string;
 }
 
 const MainRemoteInterface: FC<Props> = ({ sendMessage }) => {
 	const classes = useStyles();
+	const [searchResults, setSearchResults] = useState<SearchResult[]>([
+		{
+			displayText: 'Despacito',
+			videoId: 'MwQT7b_Dtac',
+		},
+		{
+			displayText: 'All Star',
+			videoId: 'N-elJ7vQl54',
+		},
+	]);
 
 	return (
-		<AppBar position="static">
-			<Toolbar>
-				<MusicNoteIcon />
-				<div className={classes.search}>
-					<div className={classes.searchIcon}>
-						<SearchIcon />
+		<>
+			<AppBar position="static">
+				<Toolbar>
+					<MusicNote />
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<SearchIcon />
+						</div>
+						<InputBase
+							placeholder="Search…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+						/>
 					</div>
-					<InputBase
-						placeholder="Search…"
-						classes={{
-							root: classes.inputRoot,
-							input: classes.inputInput,
-						}}
-					/>
-				</div>
-			</Toolbar>
-		</AppBar>
+				</Toolbar>
+			</AppBar>
+			<List>
+				{searchResults.map(result =>
+					<ListItem button key={result.videoId} onClick={() => sendMessage({
+						type: 'playlist.queue',
+						song: result.videoId,
+					})}>
+						<ListItemIcon><MusicNote /></ListItemIcon>
+						<ListItemText primary={result.displayText} />
+					</ListItem>,
+				)}
+			</List>
+		</>
 	);
 };
 

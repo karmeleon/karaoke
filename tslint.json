@@ -7,7 +7,15 @@
     ],
     "jsRules": {},
     "rules": {
+        "align": [true, "parameters", "statements", "members", "elements"],
         "indent": [true, "tabs"],
+        "ter-indent": [true, "tab"],
+        "object-literal-sort-keys": [true, "match-declaration-order"],
+        "import-name": [false],
+        "variable-name": {
+            "options": ["allow-pascal-case"]
+        },
+        "ter-arrow-parens": [true, "as-needed"],
         "quotemark": [true, "single", "jsx-double"],
         "interface-name": [false],
         "default-case": [false]

@@ -1,20 +1,27 @@
-import React, { FC, useContext } from 'react';
 import { Typography } from '@material-ui/core';
+import React, { FC, useCallback, useContext } from 'react';
+import ReactPlayer from 'react-player';
 
 import { Playlist } from '../Common/Messages';
 import { PlaylistDispatchContext } from './Context';
 
 interface Props {
 	// The list of videos to play
-	playlist: Playlist,
+	playlist: Playlist;
 }
 
 const VideoDisplay: FC<Props> = ({ playlist }) => {
 	const playlistDispatch = useContext(PlaylistDispatchContext);
 
-	return <>
-		{playlist.map(song => <Typography variant="h3" color="primary">{song}</Typography>)}
-	</>;
+	const onEnded = useCallback(() => {
+		playlistDispatch({ type: 'playlist.dequeue' });
+	}, [playlistDispatch]);
+
+	return <ReactPlayer
+		url={`https://www.youtube.com/watch?v=${playlist[0]}`}
+		onEnded={onEnded}
+		playing
+	/>;
 };
 
 export default VideoDisplay;
