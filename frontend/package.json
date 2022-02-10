@@ -50,7 +50,7 @@
     "enzyme-adapter-react-16": "^1.9.1",
     "http-proxy-middleware": "^0.19.1",
     "jest-localstorage-mock": "^2.4.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "prettier": "^1.17.1",
     "source-map-explorer": "^1.8.0",
     "tslint": "^5.17.0",
